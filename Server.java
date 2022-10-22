@@ -11,24 +11,24 @@ public class Server {
     {
         Weather[] w = WeatherGenerator.getWeather();
         System.out.println(w[0].getW());
-        Socket sock = null; 
-        ServerSocket server=null; 
+        Socket sock = null;//создаем сокет
+        ServerSocket server=null; //создаем сокет
         try
         {
             server = new ServerSocket(12345);
             while(true){
                 System.out.println("Waiting for a client...");
-                sock = server.accept(); 
+                sock = server.accept();//ждем подключения
                 System.out.println("Client connected");
-                DataInputStream in = new DataInputStream(sock.getInputStream());
-                DataOutputStream out = new DataOutputStream(sock.getOutputStream());
+                DataInputStream in = new DataInputStream(sock.getInputStream());//создаем поток для чтения
+                DataOutputStream out = new DataOutputStream(sock.getOutputStream());//создаем поток для отправки
                 int temp = in.readInt();
                 System.out.println(w[temp-1].getW());
                 System.out.println(w[temp-1].getDeg());
-                out.writeDouble(w[temp-1].getDeg());
-                out.writeUTF(w[temp-1].getW());
+                out.writeDouble(w[temp-1].getDeg());//отправляем число
+                out.writeUTF(w[temp-1].getW());//отправляем строку
             }
         }
-        catch(IOException e) {}
+        catch(IOException e) {}//кстати обязательно ловим эту ошибку
     }
 }

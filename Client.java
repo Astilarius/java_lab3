@@ -5,19 +5,20 @@ public class Client
 {  
     public static void main(String[] args) 
     {
-        Socket sock = null; try
+        Socket sock = null; //создаем сокет
+        try
         {
             System.out.println("Connecting to server..."); 
-            sock = new Socket("localhost",12345); 
+            sock = new Socket("localhost",12345);//подключаемся
             System.out.println("Connected");
-            DataInputStream in = new DataInputStream(sock.getInputStream());
-            DataOutputStream out = new DataOutputStream(sock.getOutputStream());
+            DataInputStream in = new DataInputStream(sock.getInputStream());//создаем поток для чтения
+            DataOutputStream out = new DataOutputStream(sock.getOutputStream());//создаем поток для отправки
             out.writeInt(7);
-            double deg = in.readDouble();
-            String weather = in.readUTF();
+            double deg = in.readDouble();//читаем число
+            String weather = in.readUTF();//читаем строку
             System.out.println(deg);
             System.out.println(weather);
         }
-        catch(IOException e) {}
+        catch(IOException e) {}//кстати обязательно ловим эту ошибку
     }
 }
